@@ -75,9 +75,7 @@ Contributions are welcome! Feel free to open issues and pull requests.
 
 ## License
 
-This project is open-source and available under the MIT License.
-
-```bash
+MIT License - Feel free to use this project in your own work.
 ng e2e
 ```
 
