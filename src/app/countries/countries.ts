@@ -1,29 +1,33 @@
-import { Observable } from 'rxjs';
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { CountryService } from '../country.service';
 import { CountryModel } from '../models/country.model';
-import { AsyncPipe } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-countries',
-  imports: [AsyncPipe],
+  imports: [FormsModule],
   templateUrl: './countries.html',
   styleUrl: './countries.css',
 })
 export class Countries {
-
   private countryService = inject(CountryService);
 
-  countryList : Observable<CountryModel[]> = this.countryService.getCountry();
+  countryName = signal('');
+  countryList = signal<CountryModel[]>([]);
 
-  consoleLog(){
-    console.log("DEneme");
-    console.log(this.countryList);
-  }
-  ngOnInit(): void {
-    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    //Add 'implements OnInit' to the class.
-    this.consoleLog();
+  ngOnInit() {
+  this.search();
   }
 
+  search() {
+    const name = this.countryName();
+
+    if (name.length > 0) {
+      this.countryService.getCountryByName(name)
+        .subscribe(res => this.countryList.set(res));
+    } else {
+      this.countryService.getCountry()
+        .subscribe(res => this.countryList.set(res));
+    }
+  }
 }

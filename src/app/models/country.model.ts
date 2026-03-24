@@ -1,8 +1,8 @@
 export interface CountryModel {
   name :{
-    comon : string,
+    common : string,
     official : string,
-    naticeName : {
+    nativeName : {
       tur:{
         official : string,
         common : string
@@ -15,5 +15,5 @@ export interface CountryModel {
       symbol : string
     }
   },
-  capital :[]
+  capital :string[]
 }

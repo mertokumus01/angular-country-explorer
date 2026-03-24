@@ -16,11 +16,13 @@ export class CountryService {
     return this.http.get<CountryModel[]>(this.apiUrl);
   }
 
-  getCountryByName(countryName : string) : Observable<CountryModel | undefined>{
+  getCountryByName(countryName: string): Observable<CountryModel[]> {
   return this.getCountry().pipe(
-    map((countries : CountryModel[])=>
-    countries.find(c => c.name.comon === countryName)
+    map((countries: CountryModel[]) =>
+      countries.filter(c =>
+        c.name.common.toLowerCase().includes(countryName.toLowerCase())
+      )
     )
-  )
-  }
+  );
+}
 }

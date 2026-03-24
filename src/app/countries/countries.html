@@ -6,8 +6,11 @@
         <a class="navbar-brand">Country List</a>
 
         <form class="d-flex" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-          <button class="btn btn-outline-success" type="submit">Search</button>
+          <span>Country Search: </span>
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
+           [ngModel]="countryName()"
+           (ngModelChange)="countryName.set($event); search()"
+           [ngModelOptions]="{standalone: true}" />
         </form>
       </div>
     </nav>
@@ -16,10 +19,10 @@
   <!-- List Group -->
   <div class="d-flex justify-content-center">
     <div class="list-group w-50 rounded-bottom mb-0">
-      @for (country of (countryList | async)?? []; track $index) {
-      <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
+      @for (country of (countryList()); track $index) {
+      <a href="#" class="list-group-item list-group-item-action " aria-current="true">
         <div class="d-flex w-100 justify-content-between">
-          <h5 class="mb-1">{{country.name}}</h5>
+          <h5 class="mb-1">{{country.name.common}}</h5>
           <small>3 days ago</small>
         </div>
         <p class="mb-1">Some placeholder content in a paragraph.</p>
