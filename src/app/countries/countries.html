@@ -23,10 +23,14 @@
       <a href="#" class="list-group-item list-group-item-action " aria-current="true">
         <div class="d-flex w-100 justify-content-between">
           <h5 class="mb-1">{{country.name.common}}</h5>
-          <small>3 days ago</small>
+          <div>
+            @for (currency of country.currencies | keyvalue; track currency.key) {
+              <small>{{ currency.value.symbol }}</small>
+            }
+          </div>
         </div>
-        <p class="mb-1">Some placeholder content in a paragraph.</p>
-        <small>And some small print.</small>
+        <p class="mb-1">{{country.name.official}}</p>
+        <small>{{country.capital?.[0]}}</small>
       </a>
       }
 
